@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>DUB - Technical Test - AngularJS</title>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.11/angular.min.js"></script>
+    <script src="js/script.js"></script>
+  </head>
+  <body ng-app="formApp" ng-controller="formController">
+    <header>
+      <div class="container">
+        <h1 class="text-center"><img src="img/dubstudios-logo.png" alt="DUB"></h1>
+      </div>
+    </header>
+    <div role="main">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-8 col-md-offset-2">
+            <!-- FORM -->
+            <div class="requestdemo">
+              <form ng-submit="processForm()">
+                <h2>Request a Demonstration</h2>
+                <hr>
+                <!-- SHOW ERROR/SUCCESS MESSAGES -->
+                <div id="messages" ng-show="message" class="alert alert-success">{{message}}</div>
+                <div class="row" ng-hide="message">
+                  <div class="col-md-6">
+                    <!-- FIRST NAME -->
+                    <div class="form-group" id="firstname-group">
+                      <label>First Name</label> <span ng-show="errorFirstName" class="alert alert-danger pull-right">{{errorFirstName}}</span>
+                      <input type="text" name="first_name" class="form-control" placeholder="Enter your first name" tabindex="1" ng-model="formData.first_name">
+                    </div>
+                    <!-- POSITION -->
+                    <div class="form-group" id="position-group">
+                      <label>Position</label>
+                      <input type="text" name="position" class="form-control" placeholder="Job Position" tabindex="3" ng-model="formData.position">
+                    </div>
+                    <!-- EMAIL -->
+                    <div class="form-group" id="email-group">
+                      <label>Email</label> <span ng-show="errorEmail" class="alert alert-danger pull-right">{{errorEmail}}</span>
+                      <input type="email" name="email" class="form-control" placeholder="Email address" tabindex="5" ng-model="formData.email">
+                    </div>
+                    <!-- REGION -->
+                    <div class="form-group" id="region-group">
+                      <label>Region</label> <span ng-show="errorRegion" class="alert alert-danger pull-right">{{errorRegion}}</span>
+                      <select name="region" class="form-control" tabindex="7" ng-model="formData.region">
+                        <option value="">Please select...</option>
+                        <option value="Europe">Europe</option>
+                        <option value="North America">North America</option>
+                        <option value="Asia">Asia</option>
+                        <option value="Australia NewZealand">Australia &amp; New Zealand</option>
+                        <option value="South America">South America</option>
+                        <option value="Africa">Africa</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <!-- LAST NAME -->
+                    <div class="form-group" id="lastname-group">
+                      <label>Last Name</label> <span ng-show="errorLastName" class="alert alert-danger pull-right">{{errorLastName}}</span>
+                      <input type="text" name="last_name" class="form-control" placeholder="Enter your last name" tabindex="2" ng-model="formData.last_name">
+                    </div>
+                    <!-- COMPANY -->
+                    <div class="form-group" id="company-group">
+                      <label>Company</label>
+                      <input type="text" name="company" class="form-control" placeholder="Company name" tabindex="4" ng-model="formData.company">
+                    </div>
+                    <!-- PHONE -->
+                    <div class="form-group" id="phone-group">
+                      <label>Phone</label>
+                      <input type="text" name="phone" class="form-control" placeholder="Phone number" tabindex="6" ng-model="formData.phone">
+                    </div>
+                    <!-- SOFTWARE -->
+                    <div class="form-group" id="software-group">
+                      <label>Software</label> <span ng-show="errorSoftware" class="alert alert-danger pull-right">{{errorSoftware}}</span>
+                      <select name="software" class="form-control" tabindex="8" ng-model="formData.software">
+                        <option value="">Please select...</option>
+                        <option value="IdeaStream">IdeaStream&#8482;</option>
+                        <option value="HeadsUp">HeadsUp&#8482;</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="clearfix"></div>
+                </div>
+                <hr ng-hide="message">
+                <h3 ng-hide="message">A GOOD TIME FOR THE DEMO<br/><small>Let us know up to three suitable times for us to organise a demo</small></h3>
+                <span ng-show="errorTimes" class="alert alert-danger" style="margin-bottom: 20px;">{{errorTimes}}</span>
+                <div class="row" ng-hide="message" data-ng-repeat="choice in choices">
+                  <div class="col-md-4">
+                    <div class="form-group" id="time-group">
+                      <select class="form-control" tabindex="9" ng-model="formData.times[$index]">
+                        <option value="">Select a time...</option>
+                        <option value="Anytime">Anytime</option>
+                        <option value="AM Only">AM Only</option>
+                        <option value="PM Only">PM Only</option>
+                        <option value="9-10am">9 - 10am</option>
+                        <option value="10-11am">10 - 11am</option>
+                        <option value="12-1pm">12 - 1pm</option>
+                        <option value="1-2pm">1 - 2pm</option>
+                        <option value="3-4pm">3 - 4pm</option>
+                        <option value="4-5pm">4 - 5pm</option>
+                        <option value="5-6pm">5 - 6pm</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="form-group" id="timezone-group">
+                      <select class="form-control" tabindex="10" ng-model="formData.timezones[$index]">
+                        <option value="">Select a timezone...</option>
+                        <option value="GMT">GMT</option>
+                        <option value="CET">CET</option>
+                        <option value="EET">EET</option>
+                        <option value="EST">EST</option>
+                        <option value="CST">CST</option>
+                        <option value="MST">MST</option>
+                        <option value="PST">PST</option>
+                        <option value="WST">WST</option>
+                        <option value="ACST">ACST</option>
+                        <option value="AEST">AEST</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="form-group" id="dates-group">
+                      <select class="form-control" tabindex="11" ng-model="formData.dates[$index]">
+                        <option value="">Select date...</option>
+                        <option value="{{datePlusOne | date:'EEE dd MMM'}}">{{datePlusOne | date:'EEE dd MMM'}}</option>
+                        <option value="{{datePlusTwo | date:'EEE dd MMM'}}">{{datePlusTwo | date:'EEE dd MMM'}}</option>
+                        <option value="{{datePlusThree | date:'EEE dd MMM'}}">{{datePlusThree | date:'EEE dd MMM'}}</option>
+                        <option value="{{datePlusFour | date:'EEE dd MMM'}}">{{datePlusFour | date:'EEE dd MMM'}}</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-md-1">
+                    <a ng-show="showAddChoice(choice)" ng-click="addNewChoice()" class="btn btn-danger pull-right"><i class="glyphicon glyphicon-plus"></i></a>
+                  </div>
+                </div>
+                <hr ng-hide="message"/>
+                <div class="row" ng-hide="message">
+                  <div class="col-md-12">
+                    <div class="form-group" id="notes-group">
+                      <label>Anything else we should know?</label>
+                      <textarea name="notes" tabindex="12" class="form-control" ng-model="formData.notes"></textarea>
+                    </div>
+                  </div>
+                </div>
+                <hr/>
+                <!-- SUBMIT -->
+                <p class="text-center" ng-hide="message"><button type="submit" class="btn btn-success">Send Demo Request</button></p>
+              </form>
+              <!-- <p><pre>{{ formData }}</pre></p> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
